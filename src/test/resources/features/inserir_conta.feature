@@ -5,39 +5,43 @@ Como um usuário
 Gostaria de cadastrar contas
 Para que eu possa distribuir meu dinheiro de uma forma mais organizada
 
-Cenário: Deve inserir uma conta com sucesso
-Dado que estou acessando a aplicação
-Quando informo o usuário "ivan.assis@teste"
-E a senha "teste"
-E seleciono entrar
-Então visualizo a página inicial
-Quando seleciono Contas
-E seleciono Adicionar
-E informo a conta "Conta de Teste"
-E seleciono Salvar
-Então a conta é inserida com sucesso
+#Background
+Contexto:  # Define os passos que são sempre executados nos cenários
+	Dado que estou acessando a aplicação
+	Quando informo o usuário "ivan.assis@teste"
+	E a senha "teste"
+	E seleciono entrar
+	Então visualizo a página inicial
+	Quando seleciono Contas
+	E seleciono Adicionar
+
+Esquema do Cenário: Deve validar regras cadastro contas
+	Quando informo a conta "<>"
+	E seleciono salvar
+	Então recebo a mensagem "<mensagem>"
+
+Exemplos:
+	| 			conta				| 					mensagem								 |
+	|  Conta de Teste 	| Conta adicionada com sucesso! 		 |
+	|  									| Informe o nome da conta 					 |
+	|  Conta mesmo nome | Já existe uma conta com esse nome! |
+	
 
 
-Cenário: Não deve inserir uma conta sem nome
-Dado que estou acessando a aplicação
-Quando informo o usuário "ivan.assis@teste"
-E a senha "teste"
-E seleciono entrar   
-Então visualizo a página inicial
-Quando seleciono Contas
-E seleciono Adicionar
-E seleciono Salvar
-Então sou notificar que o nome da conta é obrigatório
+# Cenários antes de ter sido modificado para o Esquema do Cenário
+#Cenário: Deve inserir uma conta com sucesso
+	#E informo a conta "Conta de Teste"
+	#E seleciono Salvar
+	#Então a conta é inserida com sucesso
 
 
-Cenário: Não deve inserir uma conta com nome já existente
-Dado que estou acessando a aplicação
-Quando informo o usuário "ivan.assis@teste"
-E a senha "teste"
-E seleciono entrar
-Então visualizo a página inicial
-Quando seleciono Contas
-E seleciono Adicionar
-E informo a conta "Conta de Teste"
-E seleciono Salvar
-Então sou notificado que já existe uma conta com esse nome
+#Cenário: Não deve inserir uma conta sem nome
+	#E informo a conta ""
+	#E seleciono Salvar
+	#Então sou notificar que o nome da conta é obrigatório
+
+
+#Cenário: Não deve inserir uma conta com nome já existente
+	#E informo a conta "Conta mesmo nome"
+	#E seleciono Salvar
+	#Então sou notificado que já existe uma conta com esse nome
