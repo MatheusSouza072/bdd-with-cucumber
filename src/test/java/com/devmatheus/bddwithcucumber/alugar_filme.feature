@@ -1,48 +1,39 @@
 # language: pt
-Funcionalidade: Aprender Cucumber
-  Como um aluno
-  Eu quero aprender a utilizar Cucumber
-  Para que eu possa automatizar critérios de aceitação
 
-Cenário: Deve executar especificação
-  Dado que criei o arquivo corretamente
-  Quando executá-lo
-  Então a especificação deve finalizar com sucesso
+Funcionalidade: Alugar filme
+Como um usuário
+Eu quero cadastrar aluguéis de filme
+Para controlar preços e datas de entrega
 
-Cenário: Deve incrementar contador
-  Dado que o valor do contador é 15
-  Quando eu incrementar em 3
-  Então o valor do contador será 18
-  
-Cenário: Deve calcular atraso na entrega
-	Dado que a entrega é dia 05/07/2020
-	Quando a entrega atrasar em 2 dias
-	Então a entrega será efetuada em 07/07/2020
-	
-Cenário: Deve calcular atraso na entrega da China
-	Dado que a entrega é dia 05/07/2020
-	Quando a entrega atrasar em 2 meses
-	Então a entrega será efetuada em 05/09/2020
-	
-Cenário: Deve criar steps genéricos para estes passos
-    Dado que o ticket é AF345
-    E que o valor da passagem é R$ 230,45
-    E que o nome do passageiro é "Fulano da Silva"
-    E que o telefone do passageiro é 9999-9999
-    Quando criar os steps
-    Então o teste vai funcionar
+Cenário: Deve alugar um filme com sucesso
+Dado um filme 
+	| estoque | 	2	 	|
+	| preco		| 	3 	|
+	| tipo		| comum |
+Quando alugar
+Então o preço do aluguel será R$ 3
+E a data de entrega será em 1 dia
+E o estoque do filme será 1 unidade
 
-Cenário: Deve reaproveitar os steps "Dado" do cenário anterior
-    Dado que o ticket é AB167
-    Dado que o ticket especial é AB167
-    Dado que o valor da passagem é R$ 1120,23
-    Dado que o nome do passageiro é "Cicrano de Oliveira"
-    Dado que o telefone do passageiro é 9888-8888
+Cenário: Não deve alugar filme sem estoque
+Dado um filme com estoque de 0 unidades
+Quando alugar
+Então não será possível por falta de estoque
+E o estoque do filme será 0 unidade
 
-#Cenário: Deve negar todos os steps "Dado" dos cenários anteriores
-    #Dado que o ticket é CD123
-    #Dado que o ticket é AG1234
-    #Dado que o valor da passagem é R$ 1.1345,56
-    #Dado que o nome do passageiro é "Beltrano Souza Matos de Alcântara Azevedo"
-    #Dado que o telefone do passageiro é 1234-5678
-    #Dado que o telefone do passageiro é 999-2223 
+#Scenario Outline
+Esquema do Cenário: Deve dar condições conforme tipo de aluguel
+	Dado um filme com estoque de 2 unidades
+	E que o preço do aluguel seja R$ <preco>
+	E que o tipo do aluguel seja <tipo>
+	Quando alugar
+	Então o preço do aluguel será R$ <valor>
+	E a data de entrega será em <qtdDias> dias
+	E a pontução recebida será de <pontuacao> pontos
+
+#Examples
+Exemplos:
+| preco | tipo 			| valor | qtdDias | pontuacao |
+| 4 		| extendido | 8 		| 3 			| 2 				|
+| 4 		| comum 		| 4 		| 1 			| 1 				|
+| 5 		| semanal		| 15 		| 7 			| 3 				|
