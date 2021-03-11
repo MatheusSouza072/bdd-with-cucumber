@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import com.devmatheus.bddwithcucumber.entidades.Filme;
 import com.devmatheus.bddwithcucumber.entidades.NotaAluguel;
+import com.devmatheus.bddwithcucumber.utils.DateUtils;
 
 public class AluguelService {
 	public NotaAluguel alugar(Filme filme) {

@@ -1,6 +1,11 @@
 package com.devmatheus.bddwithcucumber.converters;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import cucumber.api.Transformer;
 
 public class DateConverter extends Transformer<Date> {
 

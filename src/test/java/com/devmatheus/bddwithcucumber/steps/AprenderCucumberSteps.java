@@ -5,9 +5,13 @@ import java.util.Date;
 
 import org.junit.Assert;
 
-import io.cucumber.java.pt.Dado;
-import io.cucumber.java.pt.Então;
-import io.cucumber.java.pt.Quando;
+import com.devmatheus.bddwithcucumber.converters.DateConverter;
+
+import cucumber.api.Transform;
+import cucumber.api.java.pt.Dado;
+import cucumber.api.java.pt.Então;
+import cucumber.api.java.pt.Quando;
+
 
 public class AprenderCucumberSteps {
 	@Dado("^que criei o arquivo corretamente$")
