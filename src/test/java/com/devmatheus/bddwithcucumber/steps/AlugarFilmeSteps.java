@@ -13,10 +13,12 @@ import com.devmatheus.bddwithcucumber.entidades.TipoAluguel;
 import com.devmatheus.bddwithcucumber.servicos.AluguelService;
 import com.devmatheus.bddwithcucumber.utils.DateUtils;
 
-import cucumber.api.DataTable;
-import cucumber.api.java.pt.Dado;
-import cucumber.api.java.pt.Então;
-import cucumber.api.java.pt.Quando;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.Então;
+import io.cucumber.java.pt.Quando;
+
+
 
 public class AlugarFilmeSteps {
 
