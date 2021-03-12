@@ -19,7 +19,7 @@ import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
 
 public class AlugarFilmeSteps {
-	
+
 	private Filme filme;
 	private AluguelService aluguel = new AluguelService();
 	private NotaAluguel nota;
@@ -28,68 +28,73 @@ public class AlugarFilmeSteps {
 	
 	@Dado("^um filme com estoque de (\\d+) unidades$")
 	public void umFilmeComEstoqueDeUnidades(int arg1) throws Throwable {
-	    filme = new Filme();
-	    filme.setEstoque(arg1);
+		filme = new Filme();
+		filme.setEstoque(arg1);
 	}
 
-	@Dado("^que o preço do aluguel seja R\\$ (\\d+)$")
+	@Dado("^que o preço de aluguel seja R\\$ (\\d+)$")
 	public void queOPreçoDoAluguelSejaR$(int arg1) throws Throwable {
 		filme.setAluguel(arg1);
 	}
-	
+
 	@Dado("^um filme$")
 	public void umFilme(DataTable table) throws Throwable {
-	    Map<String, String> map = table.asMap(String.class, String.class);
-	    filme = new Filme();
-	    filme.setEstoque(Integer.parseInt(map.get("estoque")));
-	    filme.setAluguel(Integer.parseInt(map.get("preco")));
-	    String tipo = map.get("tipo");
-	    tipoAluguel = tipo.equals("semanal")? TipoAluguel.SEMANAL: tipo.equals("extendido")? TipoAluguel.EXTENDIDO: TipoAluguel.COMUM;
-
+		Map<String, String> map = table.asMap(String.class, String.class);
+		filme = new Filme();
+		filme.setEstoque(Integer.parseInt(map.get("estoque")));
+		filme.setAluguel(Integer.parseInt(map.get("preco")));
+		String tipo = map.get("tipo");
+		tipoAluguel = tipo.equals("semanal")? TipoAluguel.SEMANAL: tipo.equals("extendido")? TipoAluguel.EXTENDIDO: TipoAluguel.COMUM;
 	}
-
+	
 	@Quando("^alugar$")
 	public void alugar() throws Throwable {
 		try {
 			nota = aluguel.alugar(filme, tipoAluguel);
 		} catch (RuntimeException e) {
 			erro = e.getMessage();
-		}
-		
+		}		
 	}
 
 	@Então("^o preço do aluguel será R\\$ (\\d+)$")
 	public void oPreçoDoAluguelSeráR$(int arg1) throws Throwable {
-	    Assert.assertEquals(arg1, nota.getPreco());
+		Assert.assertEquals(arg1, nota.getPreco());			
 	}
 
 	@Então("^o estoque do filme será (\\d+) unidade$")
 	public void oEstoqueDoFilmeSeráUnidade(int arg1) throws Throwable {
-	    Assert.assertEquals(arg1, filme.getEstoque());
+		Assert.assertEquals(arg1, filme.getEstoque());
 	}
+	
 	
 	@Então("^não será possível por falta de estoque$")
 	public void nãoSeráPossívelPorFaltaDeEstoque() throws Throwable {
-	    Assert.assertEquals("Filme sem estoque", erro);
+	    Assert.assertEquals("Filme sem estoque.", erro);	    
+	}
+
+	@Então("^o estoque do filme será (\\d+) unidades$")
+	public void oEstoqueDoFilmeSeráUnidades(int arg1) throws Throwable {
+		Assert.assertEquals(arg1, filme.getEstoque());
 	}
 	
-	@Dado("^que o tipo do aluguel seja (.*)$")
-	public void queOTipoDoAluguelSejaExtendido(String tipo) throws Throwable {
-	    tipoAluguel = tipo.equals("semanal")? TipoAluguel.SEMANAL: tipo.equals("extendido")? TipoAluguel.EXTENDIDO: TipoAluguel.COMUM;
+	@Dado("^que o tipo de aluguel seja (.*)$")
+	public void queOTipoDeAlguelSejaExtendido(String tipo) throws Throwable {
+		tipoAluguel = tipo.equals("semanal")? TipoAluguel.SEMANAL: tipo.equals("extendido")? TipoAluguel.EXTENDIDO: TipoAluguel.COMUM;
 	}
 
 	@Então("^a data de entrega será em (\\d+) dias?$")
 	public void aDataDeEntregaSeráEmDias(int arg1) throws Throwable {
-		Date dataEsperada = DateUtils.obterDataDiferencaDias(arg1);
-		Date dataReal = nota.getDataEntrega();
-		
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		
-		Assert.assertEquals(format.format(dataEsperada), format.format(dataReal));
+	   Date dataEsperada = DateUtils.obterDataComDiferencaDias(arg1);
+	   Date dataReal = nota.getDataEntrega();
+	   
+	   DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	   
+	   Assert.assertEquals(format.format(dataEsperada), format.format(dataReal));
 	}
 
-	@Então("^a pontução recebida será de (\\d+) pontos$")
-	public void aPontuçãoRecebidaSeráDePontos(int arg1) throws Throwable {
-		Assert.assertEquals(arg1, nota.getPontuacao());
-	}
+	@Então("^a pontuação será de (\\d+) pontos$")
+	public void aPontuaçãoRecebidaSeráDePontos(int arg1) throws Throwable {
+	    Assert.assertEquals(arg1, nota.getPontuacao());
+	}	
+	
 }

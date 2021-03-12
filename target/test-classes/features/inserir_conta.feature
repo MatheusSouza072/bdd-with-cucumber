@@ -1,4 +1,5 @@
 #language: pt
+@funcionais
 Funcionalidade: Cadastro de contas
 
 Como um usuário 
@@ -8,7 +9,7 @@ Para que eu possa distribuir meu dinheiro de uma forma mais organizada
 #Background
 Contexto:  # Define os passos que são sempre executados nos cenários
 	Dado que estou acessando a aplicação
-	Quando informo o usuário "ivan.assis@teste"
+	Quando informo o usuário "matheus.santana@teste"
 	E a senha "teste"
 	E seleciono entrar
 	Então visualizo a página inicial
@@ -16,7 +17,7 @@ Contexto:  # Define os passos que são sempre executados nos cenários
 	E seleciono Adicionar
 
 Esquema do Cenário: Deve validar regras cadastro contas
-	Quando informo a conta "<>"
+	Quando informo a conta "<conta>"
 	E seleciono salvar
 	Então recebo a mensagem "<mensagem>"
 
@@ -31,17 +32,17 @@ Exemplos:
 # Cenários antes de ter sido modificado para o Esquema do Cenário
 #Cenário: Deve inserir uma conta com sucesso
 	#E informo a conta "Conta de Teste"
-	#E seleciono Salvar
+	#E seleciono salvar
 	#Então a conta é inserida com sucesso
 
 
 #Cenário: Não deve inserir uma conta sem nome
 	#E informo a conta ""
-	#E seleciono Salvar
+	#E seleciono salvar
 	#Então sou notificar que o nome da conta é obrigatório
 
 
 #Cenário: Não deve inserir uma conta com nome já existente
 	#E informo a conta "Conta mesmo nome"
-	#E seleciono Salvar
+	#E seleciono salvar
 	#Então sou notificado que já existe uma conta com esse nome
